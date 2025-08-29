@@ -10,3 +10,4 @@ window.setWindowTitle("Fineas - financial assistant")
 window.show()
 
 app.exec()
+
