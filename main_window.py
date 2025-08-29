@@ -99,10 +99,3 @@ class MainWindow(QMainWindow):
         
         buttons_layout.addStretch()
         grid.addWidget(buttons_widget, 1, 1)
-        
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.setStyleSheet("QMainWindow {background: 'white';}")
-    window.show()
-    sys.exit(app.exec())
