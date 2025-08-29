@@ -6,6 +6,8 @@ from PyQt6.QtWidgets import (
     QGridLayout
 )
 
+from buttons import ActionButton, buttons_info
+
 x = 100
 
 class MainWindow(QMainWindow):
@@ -13,7 +15,6 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setFixedSize(QSize(950, 700))
         self.setWindowTitle("Fineas - financial assistant")
-        # self.setStyleSheet("backgroud: 'white';")
         
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -22,7 +23,6 @@ class MainWindow(QMainWindow):
         grid = QGridLayout()
         central_widget.setLayout(grid)
         grid.setContentsMargins(20, 20, 10, 30) #left, up, right, down
-        # central_widget.setStyleSheet("backgroud: white;") 
         
         # greeting
         greet_text = (
@@ -34,8 +34,7 @@ class MainWindow(QMainWindow):
             + f"\nНаибольший доход составил по — {x}."
             + f"\nВ сравнении с прошлым месяцем, вы получили на {x} %!"
             + f"\nВы инвестировали в этом месяце: {x} ₽"
-            + f"\nДоход от инвестиций составил: {x} ₽"
-            "\n\nЯ также могу показывать актуальный курс валют и строить графики ваших финансов."
+            + "\nЯ также могу показывать актуальный курс валют и строить графики ваших финансов."
         )
 
         greet = QLabel(greet_text)
@@ -51,7 +50,7 @@ class MainWindow(QMainWindow):
         graph_placeholder.setStyleSheet("border: 1px solid #ccc;")
         grid.addWidget(graph_placeholder, 1, 0)  # (row=1, col=0)
         
-        # currency
+        # currency - пока заглушка
         currency_text = (
             "Курс валют на сегодня:"
             f"\nUSD → {x} ₽"
@@ -62,40 +61,19 @@ class MainWindow(QMainWindow):
             f"\nНефть → {x} $/барр."
         )
         currency_label = QLabel(currency_text)
-        currency_label.setStyleSheet("font-size: 18px; color: black; margin-bottom: 15px;")
-        
+        currency_label.setStyleSheet("font-size: 18px; color: black; margin-bottom: 15px; margin-top: 15px;")
         
         # buttons
         buttons_widget = QWidget()
         buttons_layout = QVBoxLayout()
         buttons_widget.setLayout(buttons_layout)
-        
+
+        # currency
         buttons_layout.addWidget(currency_label)
-        
-        buttons = [
-            "Создать вклад",
-            "Накопительный счёт",
-            "Акции",
-            "Облигации",
-            "Посмотреть все ценные бумаги"
-        ]
-        
-        for text in buttons:
-            btn = QPushButton(text)
-            btn.setFixedSize(300, 50)
-            btn.setStyleSheet("""
-                QPushButton {
-                    background-color: #4CAF50;
-                    color: white;
-                    font-size: 16px;
-                    padding: 10px;
-                    border-radius: 8px;
-                }
-                QPushButton:hover {
-                    background-color: #45a049;
-                }
-            """)
+
+        for name, msg in buttons_info.items():
+            btn = ActionButton(name, self, msg)
             buttons_layout.addWidget(btn)
-        
+
         buttons_layout.addStretch()
         grid.addWidget(buttons_widget, 1, 1)

@@ -1,52 +1,37 @@
-# finmate
+# Fineas - financial assistent
+Программа для анализа расходов и доходов с ценных бумаг, вкладов и накопительных счетов.
 
-        # Левая часть: приветствие и график
-        left_layout = QVBoxLayout()
+## Структура:
 
-        # Приветствие
-        greeting = QLabel("Добро пожаловать в Fineas — вашего финансового помощника")
-        greeting.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        greeting.setStyleSheet("font-size: 20px; font-weight: bold; margin: 10px;")
+main.py — запускает приложение, импортирует MainWindow из main_window.py.
 
-        # Заглушка для графика
-        graph_placeholder = QFrame()
-        graph_placeholder.setFrameShape(QFrame.Shape.Box)
-        graph_placeholder.setStyleSheet("background-color: #f5f5f5; border: 1px solid #ccc;")
-        graph_placeholder.setFixedSize(800, 500)
+main_window.py — весь GUI: приветствие, график, кнопки, панель валют.
 
-        left_layout.addWidget(greeting)
-        left_layout.addWidget(graph_placeholder, alignment=Qt.AlignmentFlag.AlignCenter)
+buttons.py — отдельный модуль для кнопок с готовыми слотами, чтобы не засорять MainWindow.
 
-        # Правая часть: кнопки
-        right_layout = QVBoxLayout()
+/data — хранение всех пользовательских данных, JSON и CSV удобно для теста и будущей аналитики.
 
-        buttons = [
-            "Создать вклад",
-            "Накопительный счёт",
-            "Акции",
-            "Облигации",
-            "Посмотреть все ценные бумаги"
-        ]
+/graphs — отдельный модуль для построения графиков по данным (Matplotlib, PyQtGraph и т.п.).
 
-        for text in buttons:
-            btn = QPushButton(text)
-            btn.setFixedWidth(250)
-            btn.setStyleSheet("""
-                QPushButton {
-                    background-color: #4CAF50;
-                    color: white;
-                    font-size: 16px;
-                    padding: 10px;
-                    border-radius: 8px;
-                }
-                QPushButton:hover {
-                    background-color: #45a049;
-                }
-            """)
-            right_layout.addWidget(btn)
+/resources — все визуальные материалы для интерфейса.
 
-        right_layout.addStretch()
+/utils — вспомогательные скрипты для загрузки данных и API.
 
-        # Объединяем левую и правую часть
-        main_layout.addLayout(left_layout)
-        main_layout.addLayout(right_layout)
+## Дерево: 
+
+fineas/
+
+├── main.py
+
+├── main_window.py
+
+├── buttons.py
+
+├── __data/__ investments.json / income.csv / expenses.csv
+
+
+├── __graphs/__ income_graph.py
+
+├── __resources/__ icons/ images/
+
+└── __utils/__ data_loader.py /currency_api.py
